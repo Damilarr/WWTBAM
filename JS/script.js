@@ -40,7 +40,7 @@ function check() {
     }
 }
 function playStartTheme(){
-    mp3 = new Audio('/audio/Main Theme.mp3')
+    mp3 = new Audio('../audio/Main Theme.mp3')
     mp3.play()
 }
 setInterval(() => {
