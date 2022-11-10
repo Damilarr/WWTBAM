@@ -1,4 +1,15 @@
-let easyQuest = []
+let easyQuest = [{
+    "category": "Entertainment: Video Games",
+    "type": "multiple",
+    "difficulty": "easy",
+    "question": "What ingredient is NOT used to craft a cake in Minecraft?",
+    "correct_answer": "Bread",
+    "incorrect_answers": [
+      "Wheat",
+      "Milk",
+      "Egg"
+    ]
+  },]
 let mediQuest = []
 let diffQuest = []
 let randArray = []
@@ -16,7 +27,10 @@ const optionB = document.getElementById('optB')
 const optionC = document.getElementById('optC')
 const optionD = document.getElementById('optD')
 let mp3=''
+let chosenOption=''
 let progress = 0;
+let currentArr = ''
+let prizeIndex = 14
 
 function check() {
     if (window.innerWidth > 976 ) {
@@ -42,33 +56,32 @@ async function getQuestions() {
     let resp2 = await midquestion.json()
     let resp3 = await diffquestion.json()
     easyQuest.push(resp.results[0])
-    mediQuest.push(resp2.results)
-    diffQuest.push(resp3.results)
-    showQuestions()
+    mediQuest.push(resp2.results[0])
+    diffQuest.push(resp3.results[0])
+    showQuestions(easyQuest)
 }
 function randNum(){
-    let randNo = Math.trunc(Math.random()*4)
-    if (!randArray.includes(randNo)) {
-        randArray.push(randNo)
-        console.log('random num',randNo);
-        return randNo;
-    }else{
-        randNum()
+    for (var a = [0, 1, 2, 3], i = a.length; i--; ) {
+        var random = a.splice(Math.floor(Math.random() * (i + 1)), 1)[0];
+        randArray.push(random)
     }
 }
-function showQuestions(){
+function showQuestions(array){
     console.log('show quest')
-    questionInput.innerHTML = easyQuest[questIndex].question
+    questionInput.innerHTML = array[questIndex].question
     let options = document.querySelectorAll('.optn')
-    console.log(options[1].innerHTML);
-    options[randNum()].innerHTML= easyQuest[questIndex].incorrect_answers[0]
-    options[randNum()].innerHTML= easyQuest[questIndex].incorrect_answers[1]
-    options[randNum()].innerHTML= easyQuest[questIndex].incorrect_answers[2]
-    options[randNum()].innerHTML= easyQuest[questIndex].correct_answer
-   
-        // debugger
-        // console.log(element[2].innerHTML)
+    randNum()
+    console.log(randArray,'randArray');
+    options[randArray[0]].innerHTML= array[questIndex].incorrect_answers[0]
+    options[randArray[1]].innerHTML= array[questIndex].incorrect_answers[1]
+    options[randArray[2]].innerHTML= array[questIndex].incorrect_answers[2]
+    options[randArray[3]].innerHTML= array[questIndex].correct_answer
+    console.log(randArray,'randarr2');
+    randArray=''
+    randArray=[]
+    console.log(randArray,'randarr3');
 }
+// display loader and fetch questions
 function sort(){
     let progressUpdate = setInterval(() => {
         if (progress < 100){
@@ -92,8 +105,47 @@ function sort(){
         element.classList.remove('hidden')
     })
     document.getElementById('skeleton').classList.add('hidden')
-   }, 2000);
+   }, 22000);
     playStartTheme()
 
 }
 sort()
+// add eventlistener to option buttons
+function btnListen(){
+    document.querySelectorAll('.answerDiv').forEach(element =>{
+        element.addEventListener('click',function(){
+            console.log(element.querySelector('.optn').innerHTML);
+            chosenOption = element.querySelector('.optn').innerHTML
+            console.log(chosenOption,'chosenOption');
+            setTimeout(() => {
+                verifyChosen()    
+            }, 1000);
+            
+        })
+    })
+    
+    
+}
+btnListen()
+// verify chosenanser
+function verifyChosen() {
+    currentArr = easyQuest
+    if (chosenOption == easyQuest[questIndex].correct_answer ) {
+        alert('correct')
+        currentPrize('prize')
+        // currentPrize('prize2')
+    }else{
+        alert('wrong')
+    }
+}
+// increment prize
+function currentPrize(id){
+    let currStep = document.querySelectorAll(`#${id} p`)[prizeIndex]
+    currStep.classList.remove('bg-active-step','text-white')
+    currStep.classList.add('text-yellowCol')
+    currStep.children[1].classList.remove('text-slate')
+    prizeIndex--
+    document.querySelectorAll(`#${id} p`)[prizeIndex].classList.add('bg-active-step','text-white')
+    document.querySelectorAll(`#${id} p`)[prizeIndex].classList.remove('text-yellowCol')
+    document.querySelectorAll(`#${id} p`)[prizeIndex].children[1].classList.add('text-slate')
+}
