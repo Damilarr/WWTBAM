@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: segment_led;
+    src: url(/14-segment-led/14\ Segment\ LED\ Regular.ttf);
+}
+.answer-btn{
+    background: linear-gradient(360deg,rgb(48,75,96),rgb(4,12,21) 60%,rgb(48,75,96));
+    backdrop-filter: blur(6tpx);
+}
+.answer-btn:hover{
+    background: linear-gradient(to bottom,#e1a73b 50%,#fff 5%,#f5aa1e 20%);
+}
+.quest-box{
+    background: linear-gradient(rgb(48,75,96),rgb(4,2,21) 60%,rgb(48,75,96));
+}
+.timerr{
+    font-family: segment_led;
+}
+.gameBtn{
+    animation-name: heartbeat;
+    animation-timing-function: linear;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+@keyframes heartbeat {
+    0%{
+        transform: scale(0.7);
+        -webkit-transform: scale(0.7);
+        -moz-transform: scale(0.7);
+        -ms-transform: scale(0.7);
+        -o-transform: scale(0.7);
+}
+    100%{
+        background-color: #e1a73b;
+}
+}
