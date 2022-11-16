@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="./dist/output.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
-<body  class="bg-bodyBg overflow-x-hidden">  
+<body  class="body-background bg-no-repeat  bg-center bg-cover overflow-x-hidden h-full">  
     <section class="px-12 pt:2 md:pt-5 mainGame hidden">
         <div class="flex flex-row items-end  justify-center md:items-center mb-3 md:mb-0  lg:space-x-12">
             <div class="flex flex-col items-center md:mb-3 ">
                 <div>
-                    <img src="./img/logo.webp" class="drop-shadow-2xl lg:filter-none" width="460px" alt="">
+                    <img src="./img/nigMil.png" class="drop-shadow-2xl h-56 md:h-auto lg:filter-none"  alt="">
                 </div>
                 
                 <div class="flex flex-row space-x-4 mx-2 md:mx-0 md:space-x-9">
@@ -24,7 +24,7 @@
             </div>
             <div class="flex flex-col space-y-12 md:block">
                 <div class="border-4 border-yellowCol flex flex-row items-center justify-center animate-bounce shadow mr-4 rounded-full bg-black p-8">
-                    <h1 class="text-5xl  text-yellowCol timerr">60</h1>
+                    <h1 class="text-5xl  text-yellowCol timerr" id="timeLeft">60</h1>
                 </div>
                 <div class="h-16 w-36 mr-2 overflow-y-scroll md:h-fit md:hidden quest-box rounded-full" id="prize2">
                     <p class="text-lg text-center  bg-center bg-no-repeat  text-white "><span>15.</span> <span class="w-100 spann">$1 000 000</span></p>
@@ -65,7 +65,7 @@
         </div>
     </section>
     <section class="py-4 flex flex-col items-center hidden mainGame">
-        <div class="mx-2  shadow-2xl rounded-2xl sm:rounded-tl-2xl sm:rounded-br-2xl sm:mx-10 py-6 px-3 lg:rounded-none lg:bg-quest-imgD bg-no-repeat bg-cover lg:min-w-full bg-center lg:px-12 flex flex-row justify-center items-center lg:h-20" id="questionBox">
+        <div class="mx-2  shadow-2xl rounded-2xl sm:rounded-tl-2xl sm:rounded-br-2xl sm:mx-10 py-6 px-3 lg:rounded-none lg:bg-quest-imgD bg-no-repeat bg-cover md:min-w-full md:mx-5 lg:min-w-full bg-center lg:px-12 flex flex-row justify-center items-center lg:h-20" id="questionBox">
             <p class="text-white text-2xl sm:text-lg lg:text-base lg:text-center  lg:px-12   lg:max-w-[58%]" id="questionInp">Which technique in abstract painting developed in the 1950's focuses on the effects of large areas of color having a minimum of surface detail?</p>
         </div>
         <div class="flex flex-col px-3 sm:px-0 space-y-3 pt-6 mx-10 w-full items-center justify-center">
@@ -74,18 +74,38 @@
                 <div class="answerDiv rounded-full shadow-xl text-lg sm:text-base space-x-2 border px-4 sm:w-1/2 answer-btn flex py-2 flex-row items-center"><span class="text-yellowCol">B. </span><span class="text-white hover:text-black optn" id="optB"> Canvas</span></div>   
             </div>
             <div class="flex flex-col w-full sm:flex-row  sm:w-5/6 md:w-3/4 space-y-3 sm:space-y-0 sm:space-x-9">
-                <div class="answerDiv rounded-full shadow-xl text-lg sm:text-base w-full space-x-2 border  answer-btn px-4 py-2 sm:w-1/2 flex flex-row items-center"><span class="text-yellowCol">C. </span><span class="hover:text-black text-white optn" id="optC">Fitz Gerald</span></div>
+                <div class="answerDiv rounded-full shadow-xl text-lg sm:text-base w-full space-x-2 border answer-btn px-4 py-2 sm:w-1/2 flex flex-row items-center"><span class="text-yellowCol">C. </span><span class="hover:text-black text-white optn" id="optC">Fitz Gerald</span></div>
                 <div class="answerDiv rounded-full shadow-xl text-lg sm:text-base w-full space-x-2 py-2 border px-4 sm:w-1/2 answer-btn flex flex-row items-center"><span class="text-yellowCol">D. </span><span class="hover:text-black text-white optn" id="optD"> Package</span></div>
             </div>
         </div>
     </section>
     <div id="skeleton" style="height: 100vh; width: 100vw;" class="flex flex-col items-center justify-center px-4 md:px-9">
-        <div class="w-full bg-gray-200 animate-pulse rounded-full dark:bg-red-700">
+        <div class="w-full bg-gray-200 animate-pulse rounded-full">
             <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" id="progBar"> 0%</div>
         </div>
         <p id="loadStatus" class="text-white text-sm"></p>
     </div>
-   
+    <!-- MODALLLLLLLLLLLLLL -->
+    <button id="open" class="hidden px-5 py-2 bg-rose-500 hover:bg-rose-700 text-white cursor-pointer rounded-md">
+        Show Dialog
+    </button>
+
+    <!-- Overlay element -->
+    <div id="overlay" class="fixed hidden z-40 w-screen h-screen inset-0 bg-gray-900 bg-opacity-70"></div>
+
+    <!-- The dialog -->
+    <div id="dialog"
+        class="hidden fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 bg-gray-900 rounded-md px-8 py-6 space-y-5 drop-shadow-lg shadow-black shadow-lg">
+        <h1 class="text-2xl font-semibold text-yellow-600" id='d-title'>Congratulations</h1>
+        <div class="py-5 border-t border-b border-gray-300">
+            <p class="text-stone-500" id="d-body"></p>
+        </div>
+        <div class="flex justify-end">
+            <!-- This button is used to close the dialog -->
+            <button id="close" class="px-5 py-2 quest-box text-white cursor-pointer rounded-md">Close</button>
+            <button class="px-5 py-2 text-white cursor-pointer rounded-md"><a href="#">Game rules</a></button>
+        </div>
+    </div>
 </body>
 <script src="./JS/script.js"></script>
 </html>

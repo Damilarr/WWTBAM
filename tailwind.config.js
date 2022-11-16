@@ -15,12 +15,13 @@ module.exports = {
         white:"#fff",
         yellowCol:"#e1a02e",
         slate: "#000", 
+        ansCorrect:"#2BC481"
       },
       backgroundImage:{
         'active-step':"url('/img/step_activ.png')",
         'quest-imgD':"url('/img/quest.png')",
         'quest-imgT':"url('/img/quest_m.webp')",
-        'background':"url('/img/fon.webp')"
+        'background':"url('/img/audBag.jpg')"
       }
     },
   },

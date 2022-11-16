@@ -4,7 +4,13 @@
 
 @font-face {
     font-family: segment_led;
-    src: url(/14-segment-led/14\ Segment\ LED\ Regular.ttf);
+    src: url(./14-segment-led/14\ Segment\ LED\ Regular.ttf);
+}
+.body-background{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../img/audBag.jpg);
+    /* background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat; */
 }
 .answer-btn{
     background: linear-gradient(360deg,rgb(48,75,96),rgb(4,12,21) 60%,rgb(48,75,96));
@@ -15,6 +21,14 @@
 }
 .quest-box{
     background: linear-gradient(rgb(48,75,96),rgb(4,2,21) 60%,rgb(48,75,96));
+}
+.correct{
+    background: linear-gradient(#08ad66,#00ff91,#039958);
+    backdrop-filter: blur(6tpx);
+}
+.wrong{
+    background: linear-gradient(#7c0909,#c50821,#7c0909);
+    backdrop-filter: blur(6tpx);
 }
 .timerr{
     font-family: segment_led;
