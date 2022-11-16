@@ -648,24 +648,20 @@ video {
   height: 10rem;
 }
 
+.h-full {
+  height: 100%;
+}
+
+.h-56 {
+  height: 14rem;
+}
+
 .h-16 {
   height: 4rem;
 }
 
 .h-screen {
   height: 100vh;
-}
-
-.h-full {
-  height: 100%;
-}
-
-.h-1\/2 {
-  height: 50%;
-}
-
-.h-56 {
-  height: 14rem;
 }
 
 .w-40 {
@@ -901,10 +897,6 @@ video {
 .bg-gray-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
-}
-
-.bg-opacity-50 {
-  --tw-bg-opacity: 0.5;
 }
 
 .bg-opacity-70 {
@@ -1144,7 +1136,7 @@ video {
 }
 
 .body-background{
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../img/audBag.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(./img/audBag.jpg);
   /* background-position: center;
     background-size: cover;
     background-repeat: no-repeat; */
@@ -1240,26 +1232,6 @@ video {
     margin-right: 2.5rem;
   }
 
-  .sm\:block {
-    display: block;
-  }
-
-  .sm\:h-1 {
-    height: 0.25rem;
-  }
-
-  .sm\:h-1\/2 {
-    height: 50%;
-  }
-
-  .sm\:h-5 {
-    height: 1.25rem;
-  }
-
-  .sm\:h-56 {
-    height: 14rem;
-  }
-
   .sm\:w-5\/6 {
     width: 83.333333%;
   }
@@ -1348,14 +1320,14 @@ video {
     display: none;
   }
 
+  .md\:h-auto {
+    height: auto;
+  }
+
   .md\:h-fit {
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
-  }
-
-  .md\:h-auto {
-    height: auto;
   }
 
   .md\:w-3\/4 {
