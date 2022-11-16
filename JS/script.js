@@ -303,6 +303,7 @@ function verifyChosen() {
       document
         .querySelectorAll(".answerDiv")
         [correctIndex].classList.remove("correct");
+      document.getElementById('open').click()
       resetAll();
     }, 5000);
   }
