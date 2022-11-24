@@ -13,13 +13,13 @@
         <div class="flex flex-row items-end  justify-center md:items-center mb-3 md:mb-0  lg:space-x-12">
             <div class="flex flex-col items-center md:mb-3 ">
                 <div class="mb-4 md:mb-0">
-                    <img src="./img/nigMil.png" class="drop-shadow-2xl h-56 md:h-auto lg:filter-none"  alt="">
+                    <img src="./img/wwt.png" class="drop-shadow-2xl h-56 md:h-auto lg:filter-none"  alt="">
                 </div>
                 
-                <div class="flex flex-row space-x-4 mx-2 md:mx-0 md:space-x-9">
-                    <button class="fa-solid text-white text-3xl border md:bg-transparent md:quest-box  md:border-white border-yellowCol p-3 rounded-full fa-users bg-black"></button>
-                    <button class="text-white text-3xl border md:quest-box md:bg-transparent md:quest-box border-yellowCol p-2  md:border-white rounded-full bg-black">50:50</button>
-                    <button class="fa fa-phone-flip text-3xl border border-yellowCol md:border-white p-3 rounded-full bg-black md:bg-transparent md:quest-box text-white"></button>
+                <div class="flex flex-row space-x-4 mx-2 md:mx-0 md:space-x-9" id="lifelines">
+                    <button id="lf1" class="fa-solid text-white text-3xl border md:bg-transparent md:quest-box  md:border-white border-yellowCol p-3 rounded-full fa-users bg-black"></button>
+                    <button id="lf2" class="text-white text-3xl border md:quest-box md:bg-transparent md:quest-box border-yellowCol p-2  md:border-white rounded-full bg-black">50:50</button>
+                    <button id="lf3" class="fa fa-phone-flip text-3xl border border-yellowCol md:border-white p-3 rounded-full bg-black md:bg-transparent md:quest-box text-white"></button>
                 </div>
             </div>
             <div class="flex flex-col space-y-12 md:block">
@@ -103,9 +103,10 @@
         <div class="flex justify-end">
             <!-- This button is used to close the dialog -->
             <button id="close" class="px-5 py-2 quest-box text-white cursor-pointer rounded-md">Close</button>
-            <button class="px-5 py-2 text-white cursor-pointer rounded-md"><a href="#">Game rules</a></button>
+            <button class="px-5 py-2 text-white cursor-pointer rounded-md" id="grBtn"><a href="#">Game rules</a></button>
         </div>
     </div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script src="./JS/script.js"></script>
 </html>

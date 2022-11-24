@@ -21,7 +21,7 @@ module.exports = {
         'active-step':"url('../img/step_activ.png')",
         'quest-imgD':"url('../img/quest.png')",
         'quest-imgT':"url('../img/quest_m.webp')",
-        'background':"url('../img/audBag.jpg')"
+        'background':"url('../img/wwtb.jpg')"
       }
     },
   },

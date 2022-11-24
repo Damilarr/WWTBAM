@@ -7,11 +7,29 @@
     src: url(../14-segment-led/14\ Segment\ LED\ Regular.ttf);
 }
 .body-background{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../img/audBag.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../img/wwtb.jpg);
     /* background-position: center;
     background-size: cover;
     background-repeat: no-repeat; */
 }
+/* #lf1::before{
+    content: url('');
+    height: 30px;
+    width: 4px;
+    background-color: red;
+    /* position: absolute; *
+} */
+.usedLine{
+    color: #7c0909;
+    border:2px solid #7c0909 !important;
+}
+/* #lf1::after{
+    content: url('');
+    height: 30px;
+    width: 4px;
+    background-color: red;
+    position: absolute;
+} */
 .answer-btn{
     background: linear-gradient(360deg,rgb(48,75,96),rgb(4,12,21) 60%,rgb(48,75,96));
     backdrop-filter: blur(6tpx);
