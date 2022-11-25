@@ -25,6 +25,12 @@ let easyQuest = [
     incorrect_answers: ["Fletcher Christian", "Jay Gatsby", "Randall Flagg"],
   },
 ];
+let friendArr = [
+  "“Sorry! I know nothing about this topic. I really can’t help you. You’re on your own!”",
+  "“Hi, I read something about this recently and am sure the correct answer is",
+  "“Wow, I always joke about you being an idiot, and now you’ve proved me right!😅 The answer is",
+  "“Intelligence isn’t your best feature, is it?😅 “Are you sure you read the question correctly? Because if you did, you’d know the correct answer is obviously",
+];
 let mediQuest = [];
 let diffQuest = [];
 let randArray = [];
@@ -45,6 +51,7 @@ let questIndex2 = 0;
 let questIndex3 = 0;
 let prizeIndex = 14;
 let prizeIndex2 = 14;
+let options = document.querySelectorAll(".optn");
 const questionBox = document.getElementById("questionBox");
 const questionInput = document.getElementById("questionInp");
 const loadStatus = document.getElementById("loadStatus");
@@ -52,8 +59,8 @@ const optionA = document.getElementById("optA");
 const optionB = document.getElementById("optB");
 const optionC = document.getElementById("optC");
 const optionD = document.getElementById("optD");
-const modalBody = document.getElementById('d-body');
-const modalTitle = document.getElementById('d-title') 
+const modalBody = document.getElementById("d-body");
+const modalTitle = document.getElementById("d-title");
 let mp3 = "";
 let opSound = "";
 let winLose = "";
@@ -63,34 +70,75 @@ let timee = 60;
 let currentArr = "";
 let music = false;
 let verified = false;
-let selectedIndex, correctIndex, timerUpdate,amtWon;
+let selectedIndex, correctIndex, timerUpdate, amtWon,wrong1,wrong2,wrong3;
 
+// let prizeInterval = setInterval(() => {
+//   setPrizeValue();
+// }, 1000);
 
-setInterval(() => {
-  setPrizeValue()
-}, 1000);
-function setPrizeValue(){
+function setPrizeValue() {
+  document.querySelector('#grBtn').classList.remove('hidden')
   if (questIndex < 4) {
-    amtWon = 0
-    modalTitle.innerHTML = 'Oops'
-    modalBody.innerHTML = `You  won <span id="amtWon" class="font-bold text-yellow-600">$${amtWon} 😞!!!</span>.View the game rules using the button below if you haven't!!`
-  } else if(questIndex >=4 && questIndex < 9) {
-    amtWon = 1000
-    modalTitle.innerHTML = 'Almost there.'
-    modalBody.innerHTML = `You  won <span id="amtWon" class="font-bold text-yellow-600">$${amtWon} 🤩🤩!!!</span>.View the game rules using the button below if you haven't!!`
-  } else if (questIndex >=9 && questIndex < 13){
-    amtWon = 32000
-    modalTitle.innerHTML = 'Woah🤯🥶.'
-    modalBody.innerHTML = `You  won <span id="amtWon" class="font-bold text-yellow-600">$${amtWon} 🤩🤩!!!</span>.View the game rules using the button below if you haven't!!`
-  }else if(questIndex == 13){
+    amtWon = 0;
+    modalTitle.innerHTML = "Oops";
+    modalBody.innerHTML = `You  won <span id="amtWon" class="font-bold text-yellow-600">$${amtWon} 😞!!!</span>.View the game rules using the button below if you haven't!!`;
+  } else if (questIndex >= 4 && questIndex < 9) {
+    amtWon = 1000;
+    modalTitle.innerHTML = "Almost there.";
+    modalBody.innerHTML = `You  won <span id="amtWon" class="font-bold text-yellow-600">$${amtWon} 🤩🤩!!!</span>.View the game rules using the button below if you haven't!!`;
+  } else if (questIndex >= 9 && questIndex < 13) {
+    amtWon = 32000;
+    modalTitle.innerHTML = "Impressive!!";
+    modalBody.innerHTML = `You  won <span id="amtWon" class="font-bold text-yellow-600">$${amtWon} 🤩🤩!!!</span>.View the game rules using the button below if you haven't!!`;
+  } else if (questIndex == 13) {
     amtWon = 1000000;
-    modalTitle.innerHTML = 'Almost'
-    modalBody.innerHTML = `You  won <span id="amtWon" class="font-bold text-yellow-600">$${amtWon} ⭐!!!</span>.View the game rules using the button below if you haven't!!`
+    modalTitle.innerHTML = "Woah🤯🥶.";
+    modalBody.innerHTML = `You  won <span id="amtWon" class="font-bold text-yellow-600">$${amtWon} ⭐!!!</span>.View the game rules using the button below if you haven't!!`;
   }
+}
+function lifeLines(){
+  document.querySelectorAll('#lifelines button').forEach((element,i)=>{
+    element.addEventListener('click',provideLifeLine)
+  }); 
+}
+lifeLines()
+function provideLifeLine(e){
+  let id = e.target.id;
+  let optt = options[correctIndex].id
+  console.log(easyQuest[questIndex]);
+  console.log(e.target);
+  if (id =='lf3') {
+   let  corOpt = optt.charAt(3);
+    let randNo = rand()
+    modalTitle.innerHTML = "Your Friend Says";
+    modalBody.innerHTML = friendArr[randNo]+" "+ `${randNo >0?corOpt:''}`;
+    `${randNo?document.querySelector('#grBtn').classList.add('hidden'):''}`
+    document.getElementById("open").click()
+  }else if (id=='lf2'){
+    let pp =  []
+    pp.push(...options);
+    let wrongOptions = pp.filter(element => element.id != optt)
+    for (let i = 0; i < wrongOptions.length - 1; i++) {
+      let  wrongId = wrongOptions[i].id;
+      document.getElementById(wrongId).innerHTML ='';
+    }
+  }else if (id == 'lf1'){
+    modalTitle.innerHTML = 'Based on votes by the audience';
+    modalBody.innerHTML = '<canvas id="myChart" style="width:100%;max-width:600px"></canvas>'
+    document.getElementById("open").click()
+    makeChart();
+    
+  }
+  document.getElementById(id).classList.add('usedLine')
+  document.getElementById(id).setAttribute('disabled','disabled');
+}
+
+// 
+function rand(){
+  return Math.trunc(Math.random() * friendArr.length)
 }
 function playWinOrLose(url) {
   winLose = new Audio(url);
-  // debugger
   console.log(winLose);
   winLose.play();
 }
@@ -149,7 +197,6 @@ function gameStartSound() {
 function showQuestions(array) {
   console.log("show quest");
   questionInput.innerHTML = array[questIndex].question;
-  let options = document.querySelectorAll(".optn");
   randNum();
   console.log(randArray, "randArray");
   options[randArray[0]].innerHTML = array[questIndex].incorrect_answers[0];
@@ -157,14 +204,17 @@ function showQuestions(array) {
   options[randArray[2]].innerHTML = array[questIndex].incorrect_answers[2];
   options[randArray[3]].innerHTML = array[questIndex].correct_answer;
   correctIndex = randArray[3];
+  wrong1 = randArray[0];
+  wrong2 = randArray[1];
+  wrong3 = randArray[2];
   console.log(randArray, "randarr2");
   randArray = "";
   randArray = [];
   console.log(randArray, "randarr3");
   if (questIndex > 0) {
     if (timee < 60) {
-        clearInterval(timerUpdate)
-        timee = 60
+      clearInterval(timerUpdate);
+      timee = 60;
     }
     setTimer();
   }
@@ -203,11 +253,10 @@ function setTimer() {
     timerUpdate = setTimeout(() => {
       setTimer();
     }, 1000);
-  }else{
-    // alert('time up')
-    
-    document.getElementById('open').click()
-    resetAll()
+  } else {
+    setPrizeValue()
+    document.getElementById("open").click();
+    resetAll();
   }
 }
 sort();
@@ -250,8 +299,11 @@ function verifyChosen() {
   document
     .querySelectorAll(".answerDiv")
     [correctIndex].classList.add("correct");
-  if (chosenOption == currentArr[questIndex].correct_answer) {
+    console.log(timee);
+
+  if (chosenOption == currentArr[questIndex].correct_answer && timee > 3) {
     // alert('correct')
+    clearInterval(timerUpdate);
     if (music == true) {
       mp3.pause();
       setTimeout(() => {
@@ -291,19 +343,20 @@ function verifyChosen() {
     }
     playWinOrLose("./audio/lose.mp3");
     setTimeout(() => {
-      document
-        .querySelectorAll(".answerDiv")
-        [selectedIndex].classList.add("answer-btn");
-      document
-        .querySelectorAll(".answerDiv")
-        [selectedIndex].classList.remove("wrong");
-      document
-        .querySelectorAll(".answerDiv")
-        [correctIndex].classList.add("answer-btn");
-      document
-        .querySelectorAll(".answerDiv")
-        [correctIndex].classList.remove("correct");
-      document.getElementById('open').click()
+      // document
+      //   .querySelectorAll(".answerDiv")
+      //   [selectedIndex].classList.add("answer-btn");
+      // document
+      //   .querySelectorAll(".answerDiv")
+      //   [selectedIndex].classList.remove("wrong");
+      // document
+      //   .querySelectorAll(".answerDiv")
+      //   [correctIndex].classList.add("answer-btn");
+      // document
+      //   .querySelectorAll(".answerDiv")
+      //   [correctIndex].classList.remove("correct");
+        setPrizeValue()
+      document.getElementById("open").click();
       resetAll();
     }, 5000);
   }
@@ -340,11 +393,26 @@ function resetAll() {
   mediQuest.length = 0;
   diffQuest.length = 0;
   randArray.length = 0;
+  timee = 60
   music = false;
   questIndex = 0;
   prizeIndex = 14;
   prizeIndex2 = 14;
+  correctIndex = '';
+  selectedIndex = '';
+  wrong1='';
+  wrong2='';
+  wrong3='';
+  document.querySelectorAll(".answerDiv").forEach(element =>{
+    element.classList.remove('wrong')
+    element.classList.remove('correct')   
+    element.classList.add('answer-btn')   
+  })
   getQuestions();
+  document.querySelectorAll('#lifelines button').forEach((element,i)=>{
+    document.getElementById(`${element.id}`).classList.remove('usedLine')
+    document.getElementById(`${element.id}`).removeAttribute('disabled')
+  });
 }
 function resetPrize(id) {
   console.log(prizeIndex);
@@ -368,20 +436,91 @@ function resetPrize(id) {
     .children[1].classList.add("text-slate");
 }
 
-//modal 
-let openButton = document.getElementById('open');
-let dialog = document.getElementById('dialog');
-let closeButton = document.getElementById('close');
-let overlay = document.getElementById('overlay');
+//modal
+let openButton = document.getElementById("open");
+let dialog = document.getElementById("dialog");
+let closeButton = document.getElementById("close");
+let overlay = document.getElementById("overlay");
 
 // show the overlay and the dialog
-openButton.addEventListener('click', function () {
-    dialog.classList.remove('hidden');
-    overlay.classList.remove('hidden');
+openButton.addEventListener("click", function () {
+  dialog.classList.remove("hidden");
+  overlay.classList.remove("hidden");
 });
 
 // hide the overlay and the dialog
-closeButton.addEventListener('click', function () {
-    dialog.classList.add('hidden');
-    overlay.classList.add('hidden');
-}); 
+closeButton.addEventListener("click", function () {
+  dialog.classList.add("hidden");
+  overlay.classList.add("hidden");
+});
+
+
+
+//chart
+function makeChart(){
+//  try {
+  // debugger
+  // let options = document.querySelectorAll(".optn");
+  console.log(options,wrong1,wrong2);
+  let correcvt = (options[correctIndex].id)
+  let wro1 = (options[wrong1].id)
+  let wro2 = (options[wrong2].id)
+  let wro3 = (options[wrong3].id)
+  let op = []
+  op.push(wro1.charAt('3'),wro2.charAt('3'),wro3.charAt('3'),correcvt.charAt('3'))
+  console.log(op.sort());
+  console.log(wro1,wro2,wro3,correcvt);
+  console.log(op.indexOf(correcvt.charAt('3')));
+  let xValues = ["A", "B", "C", "D",];
+  let yValues = [...generate(100,4)];
+  let barColors = ["red", "green","blue","orange",];
+
+  new Chart("myChart", {
+    type: "bar",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      legend: {display: false},
+      title: {
+        display: true,
+        text: "Votes by Audience"
+      }
+    }
+  });
+//  } catch (error) {
+  // alert(error)
+//  }
+}
+
+// chart digits
+function generate(max, thecount) {
+  let r = [];
+  let currsum = 0;
+  let maxx;
+  for(let i=0; i<thecount; i++) {
+      r.push(Math.random());
+      currsum += r[i];
+      console.log(currsum,'curr');
+  }
+  for(let i=0; i<r.length; i++) {
+      r[i] = Math.round(r[i] / currsum * max);
+  }
+  maxx = Math.max(...r);
+  let correcvt = (options[correctIndex].id)
+  let wro1 = (options[wrong1].id)
+  let wro2 = (options[wrong2].id)
+  let wro3 = (options[wrong3].id)
+  let op = []
+  op.push(wro1.charAt('3'),wro2.charAt('3'),wro3.charAt('3'),correcvt.charAt('3'))
+  op.sort();
+  let optId= op.indexOf(correcvt.charAt('3'));
+  r.splice(r.indexOf(maxx),1);
+  r.splice(optId,0,maxx)
+  return r;
+
+}
