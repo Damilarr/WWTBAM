@@ -46,7 +46,7 @@ let timee = 60;
 let currentArr = "";
 let music = false;
 let verified = false;
-let selectedIndex,timeUpSound,tmUp, correctIndex, timerUpdate, amtWon,wrong1,wrong2,wrong3;
+let selectedIndex,timeUpSound,tmUp, correctIndex, timerUpdate, amtWon,wrong1,wrong2,wrong3,applaud,mp3n;
 
 // let prizeInterval = setInterval(() => {
 //   setPrizeValue();
@@ -241,12 +241,13 @@ function setTimer() {
   }
 }
 function playNext(){
-  mp3 = new Audio('./audio/applause.mp3')
-  mp3.play()
-  mp3.addEventListener('ended',()=>{
-    mp3 = new Audio('./audio/short.mp3')
-    mp3.play()
-    mp3.loop = true;
+  applaud = true
+ mp3n = new Audio('./audio/applause.mp3')
+  mp3n.play()
+  mp3n.addEventListener('ended',()=>{
+    mp3n = new Audio('./audio/short.mp3')
+    mp3n.play()
+    mp3n.loop = true;
   })
   
 }
@@ -327,6 +328,7 @@ function verifyChosen() {
     }
     playWinOrLose("./audio/lose.mp3");
     setTimeout(() => {
+      playNext()
         setPrizeValue()
       document.getElementById("open").click();
       resetAll();
@@ -416,10 +418,10 @@ openButton.addEventListener("click", function () {
 
 // hide the overlay and the dialog
 closeButton.addEventListener("click", function () {
-  if (tmUp == true) {
-    tmUp=''
-    mp3.pause()
-    mp3.currentTime = 0
+  if (applaud == true) {
+    applaud=''
+    mp3n.pause()
+    mp3n.currentTime = 0
   }
   dialog.classList.add("hidden");
   overlay.classList.add("hidden");
