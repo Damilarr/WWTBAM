@@ -34,7 +34,12 @@
     background: linear-gradient(360deg,rgb(48,75,96),rgb(4,12,21) 60%,rgb(48,75,96));
     backdrop-filter: blur(6tpx);
 }
-.answer-btn:hover{
+@media screen and (min-width:1000px) {
+    .answer-btn:hover{
+        background: linear-gradient(to bottom,#e1a73b 50%,#fff 5%,#f5aa1e 20%);
+    }
+}
+.answer-btn-clicked{
     background: linear-gradient(to bottom,#e1a73b 50%,#fff 5%,#f5aa1e 20%);
 }
 .quest-box{
