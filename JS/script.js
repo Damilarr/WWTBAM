@@ -1,3 +1,4 @@
+'use strict'
 let easyQuest = [];
 let friendArr = [
   "“Sorry! I know nothing about this topic. I really can’t help you. You’re on your own!”",
@@ -46,7 +47,7 @@ let timee = 60;
 let currentArr = "";
 let music = false;
 let verified = false;
-let selectedIndex,timeUpSound,tmUp, correctIndex, timerUpdate, amtWon,wrong1,wrong2,wrong3,applaud,mp3n;
+let selectedIndex,timeUpSound,tmUp, correctIndex, timerUpdate, amtWon,wrong1,wrong2,wrong3,applaud,mp3n,clickedBtnn;
 
 // let prizeInterval = setInterval(() => {
 //   setPrizeValue();
@@ -140,7 +141,6 @@ function check() {
 }
 function playStartTheme() {
   mp3 = new Audio("./audio/Main Theme.mp3");
-  mp3.currentTime = 8;
   mp3.play();
 }
 setInterval(() => {
@@ -179,6 +179,9 @@ function gameStartSound() {
 function showQuestions(array) {
   questionInput.innerHTML = array[questIndex].question;
   randNum();
+  options.forEach(element => {
+    element.innerHTML = ''
+  });
   options[randArray[0]].innerHTML = array[questIndex].incorrect_answers[0];
   options[randArray[1]].innerHTML = array[questIndex].incorrect_answers[1];
   options[randArray[2]].innerHTML = array[questIndex].incorrect_answers[2];
@@ -252,14 +255,26 @@ function playNext(){
   
 }
 sort();
-// add eventlistener to option buttons
-function btnListen() {
-  document.querySelectorAll(".answerDiv").forEach((element, i) => {
-    element.addEventListener("click", function () {
-      selectedIndex = i;
-      chosenOption = element.querySelector(".optn").innerHTML;
-      element.classList.remove("answer-btn");
-      element.classList.add("answer-btn-clicked");
+function select(index,e){
+  console.log(index);
+  console.log(e.target);
+  
+      selectedIndex = index;
+      clickedBtnn = e.target.id;
+      // console.log(clickedBtnn,'clickedbtnn');
+      // document.querySelectorAll(".answerDiv").
+      chosenOption = e.target.querySelector(".optn").innerText;
+      console.log(chosenOption,'chosenOption');
+      e.target.classList.remove("answer-btn");
+      e.target.classList.add("answer-btn-clicked");
+      document.querySelectorAll(".answerDiv").forEach((elem,i) =>{
+      if (elem.id !== clickedBtnn) {
+          console.log('attempting');
+          console.log(elem);
+          elem.setAttribute('disabled','disabled')
+        }
+        clickedBtnn = ''
+      })
       if (music == true) {
         mp3.pause();
         setTimeout(() => {
@@ -268,10 +283,14 @@ function btnListen() {
       }
       OptionSelect();
       setTimeout(() => {
-        // element.classList.add("answer-btn");
         verifyChosen();
       }, 4000);
-    });
+}
+
+// add eventlistener to option buttons
+function btnListen() {
+  document.querySelectorAll(".answerDiv").forEach((element, i) => {
+    element.addEventListener("click",function (e){select(i,e)});
   });
 }
 btnListen();
@@ -293,10 +312,8 @@ function verifyChosen() {
     corrAns.classList.remove("answer-btn-clicked");
   }
   corrAns.classList.add('correct');
-  
+  console.log(currentArr[questIndex].correct_answer,'correct ans');
   if (chosenOption == currentArr[questIndex].correct_answer && timee > 3) {
-    // alert('correct')
-   
     if (music == true) {
       mp3.pause();
       setTimeout(() => {
@@ -319,6 +336,7 @@ function verifyChosen() {
       document.querySelectorAll(".answerDiv")[selectedIndex].classList.remove("correct");
       document.querySelectorAll(".answerDiv")[selectedIndex].classList.add("answer-btn"); //create func and pass params to add and remove
       gameStartSound();
+      removeDisabled();
     }, 6000);
   } else {
     document.querySelectorAll(".answerDiv")[selectedIndex].classList.remove("answer-btn-clicked");
@@ -334,6 +352,12 @@ function verifyChosen() {
       resetAll();
     }, 5000);
   }
+}
+
+function removeDisabled(){
+  document.querySelectorAll(".answerDiv").forEach(element => {
+    element.removeAttribute('disabled')
+  });
 }
 // increment prize
 function currentPrize(id, pIndex) {
@@ -377,11 +401,12 @@ function resetAll() {
     element.classList.remove('correct')   
     element.classList.add('answer-btn')   
   })
+  document.querySelectorAll('#lifelines button').forEach(element =>{
+    element.classList.remove('usedLine')
+  element.removeAttribute('disabled');
+  })
   getQuestions();
-  document.querySelectorAll('#lifelines button').forEach((element,i)=>{
-    document.getElementById(`${element.id}`).classList.remove('usedLine')
-    document.getElementById(`${element.id}`).removeAttribute('disabled')
-  });
+  removeDisabled();
 }
 function resetPrize(id) {
   mp3.pause();
