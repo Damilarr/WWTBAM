@@ -10,16 +10,16 @@ let mediQuest = [];
 let diffQuest = [];
 let randArray = [];
 let loaderArray = [
-  "Initiallizing game resourses",
+  "Initializing game resources",
   "Setting up environment",
   "Finishing process, please wait...",
 ];
 const easyUrl =
   "https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple";
 const mediUrl =
-  "https://opentdb.com/api.php?amount=20&difficulty=medium&type=multiple";
+  "https://opentdb.com/api.php?amount=20&difficulty=easy&type=multiple";
 const diffUrl =
-  "https://opentdb.com/api.php?amount=25&difficulty=hard&type=multiple";
+  "https://opentdb.com/api.php?amount=25&difficulty=easy&type=multiple";
 let choiceIndex = 0;
 let questIndex = 0;
 let questIndex2 = 0;
